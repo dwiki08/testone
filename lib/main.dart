@@ -1,18 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:testone/di/injection.dart' as di;
-import 'package:testone/presentation/home_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:testone/presentation/home_screen.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  di.setupLocator();
-  runApp(
-    ChangeNotifierProvider(
-      create: (_) => di.locator<HomeProvider>(),
-      child: const MyApp(),
-    ),
-  );
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
