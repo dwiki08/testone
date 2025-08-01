@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
@@ -12,6 +13,10 @@ import 'tables/categories.dart';
 import 'tables/foods.dart';
 
 part 'app_database.g.dart';
+
+final appDatabaseProvider = Provider<AppDatabase>((ref) {
+  return AppDatabase();
+});
 
 @DriftDatabase(tables: [Categories, Foods], daos: [CategoryDao, FoodDao])
 class AppDatabase extends _$AppDatabase {

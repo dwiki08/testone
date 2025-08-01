@@ -1,8 +1,14 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:testone/data/mapper/mapper.dart';
 
 import '../../domain/model/category.dart';
 import '../../domain/model/food.dart';
 import '../db/app_database.dart';
+
+final foodRepositoryProvider = Provider<FoodRepository>((ref) {
+  final database = ref.watch(appDatabaseProvider);
+  return FoodRepositoryImpl(database);
+});
 
 abstract class FoodRepository {
   Future<List<Food>> getAllFoods();

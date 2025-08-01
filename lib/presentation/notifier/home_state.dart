@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../domain/model/category.dart';
-import '../domain/model/food.dart';
+import '../../domain/model/category.dart';
+import '../../domain/model/food.dart';
 
 part 'home_state.freezed.dart';
 
