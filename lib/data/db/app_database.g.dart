@@ -8,7 +8,9 @@ class $CategoriesTable extends Categories
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
+
   $CategoriesTable(this.attachedDatabase, [this._alias]);
+
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -35,13 +37,17 @@ class $CategoriesTable extends Categories
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+
   @override
   List<GeneratedColumn> get $columns => [id, name];
+
   @override
   String get aliasedName => _alias ?? actualTableName;
+
   @override
   String get actualTableName => $name;
   static const String $name = 'categories';
+
   @override
   VerificationContext validateIntegrity(
     Insertable<CategoryEntity> instance, {
@@ -65,6 +71,7 @@ class $CategoriesTable extends Categories
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
+
   @override
   CategoryEntity map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -89,7 +96,9 @@ class $CategoriesTable extends Categories
 class CategoryEntity extends DataClass implements Insertable<CategoryEntity> {
   final int id;
   final String name;
+
   const CategoryEntity({required this.id, required this.name});
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -112,6 +121,7 @@ class CategoryEntity extends DataClass implements Insertable<CategoryEntity> {
       name: serializer.fromJson<String>(json['name']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -123,6 +133,7 @@ class CategoryEntity extends DataClass implements Insertable<CategoryEntity> {
 
   CategoryEntity copyWith({int? id, String? name}) =>
       CategoryEntity(id: id ?? this.id, name: name ?? this.name);
+
   CategoryEntity copyWithCompanion(CategoriesCompanion data) {
     return CategoryEntity(
       id: data.id.present ? data.id.value : this.id,
@@ -141,6 +152,7 @@ class CategoryEntity extends DataClass implements Insertable<CategoryEntity> {
 
   @override
   int get hashCode => Object.hash(id, name);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -152,14 +164,17 @@ class CategoryEntity extends DataClass implements Insertable<CategoryEntity> {
 class CategoriesCompanion extends UpdateCompanion<CategoryEntity> {
   final Value<int> id;
   final Value<String> name;
+
   const CategoriesCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
   });
+
   CategoriesCompanion.insert({
     this.id = const Value.absent(),
     required String name,
   }) : name = Value(name);
+
   static Insertable<CategoryEntity> custom({
     Expression<int>? id,
     Expression<String>? name,
@@ -200,7 +215,9 @@ class $FoodsTable extends Foods with TableInfo<$FoodsTable, FoodEntity> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
+
   $FoodsTable(this.attachedDatabase, [this._alias]);
+
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -274,6 +291,7 @@ class $FoodsTable extends Foods with TableInfo<$FoodsTable, FoodEntity> {
       'REFERENCES categories (id)',
     ),
   );
+
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -283,11 +301,14 @@ class $FoodsTable extends Foods with TableInfo<$FoodsTable, FoodEntity> {
     price,
     categoryId,
   ];
+
   @override
   String get aliasedName => _alias ?? actualTableName;
+
   @override
   String get actualTableName => $name;
   static const String $name = 'foods';
+
   @override
   VerificationContext validateIntegrity(
     Insertable<FoodEntity> instance, {
@@ -344,6 +365,7 @@ class $FoodsTable extends Foods with TableInfo<$FoodsTable, FoodEntity> {
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
+
   @override
   FoodEntity map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -388,6 +410,7 @@ class FoodEntity extends DataClass implements Insertable<FoodEntity> {
   final String photo;
   final int price;
   final int? categoryId;
+
   const FoodEntity({
     required this.id,
     required this.name,
@@ -396,6 +419,7 @@ class FoodEntity extends DataClass implements Insertable<FoodEntity> {
     required this.price,
     this.categoryId,
   });
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -437,6 +461,7 @@ class FoodEntity extends DataClass implements Insertable<FoodEntity> {
       categoryId: serializer.fromJson<int?>(json['categoryId']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -465,6 +490,7 @@ class FoodEntity extends DataClass implements Insertable<FoodEntity> {
     price: price ?? this.price,
     categoryId: categoryId.present ? categoryId.value : this.categoryId,
   );
+
   FoodEntity copyWithCompanion(FoodsCompanion data) {
     return FoodEntity(
       id: data.id.present ? data.id.value : this.id,
@@ -496,6 +522,7 @@ class FoodEntity extends DataClass implements Insertable<FoodEntity> {
   @override
   int get hashCode =>
       Object.hash(id, name, description, photo, price, categoryId);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -515,6 +542,7 @@ class FoodsCompanion extends UpdateCompanion<FoodEntity> {
   final Value<String> photo;
   final Value<int> price;
   final Value<int?> categoryId;
+
   const FoodsCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
@@ -523,6 +551,7 @@ class FoodsCompanion extends UpdateCompanion<FoodEntity> {
     this.price = const Value.absent(),
     this.categoryId = const Value.absent(),
   });
+
   FoodsCompanion.insert({
     this.id = const Value.absent(),
     required String name,
@@ -534,6 +563,7 @@ class FoodsCompanion extends UpdateCompanion<FoodEntity> {
        description = Value(description),
        photo = Value(photo),
        price = Value(price);
+
   static Insertable<FoodEntity> custom({
     Expression<int>? id,
     Expression<String>? name,
@@ -610,14 +640,17 @@ class FoodsCompanion extends UpdateCompanion<FoodEntity> {
 
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
+
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
   late final $CategoriesTable categories = $CategoriesTable(this);
   late final $FoodsTable foods = $FoodsTable(this);
   late final CategoryDao categoryDao = CategoryDao(this as AppDatabase);
   late final FoodDao foodDao = FoodDao(this as AppDatabase);
+
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
+
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [categories, foods];
 }
@@ -660,6 +693,7 @@ class $$CategoriesTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
     builder: (column) => ColumnFilters(column),
@@ -705,6 +739,7 @@ class $$CategoriesTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+
   ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
     builder: (column) => ColumnOrderings(column),
@@ -725,6 +760,7 @@ class $$CategoriesTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
@@ -892,6 +928,7 @@ class $$FoodsTableFilterComposer extends Composer<_$AppDatabase, $FoodsTable> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+
   ColumnFilters<int> get id => $composableBuilder(
     column: $table.id,
     builder: (column) => ColumnFilters(column),
@@ -950,6 +987,7 @@ class $$FoodsTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+
   ColumnOrderings<int> get id => $composableBuilder(
     column: $table.id,
     builder: (column) => ColumnOrderings(column),
@@ -1008,6 +1046,7 @@ class $$FoodsTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
@@ -1175,9 +1214,12 @@ typedef $$FoodsTableProcessedTableManager =
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
+
   $AppDatabaseManager(this._db);
+
   $$CategoriesTableTableManager get categories =>
       $$CategoriesTableTableManager(_db, _db.categories);
+
   $$FoodsTableTableManager get foods =>
       $$FoodsTableTableManager(_db, _db.foods);
 }

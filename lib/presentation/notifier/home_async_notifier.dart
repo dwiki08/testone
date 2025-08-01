@@ -2,27 +2,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/model/category.dart';
 import '../../domain/model/food.dart';
-import '../../domain/usecase/get_categories.dart';
-import '../../domain/usecase/get_foods.dart';
 import '../../provider/use_case_provider.dart';
 import '../home_state.dart';
 
 class HomeAsyncNotifier extends AsyncNotifier<HomeState> {
-  late GetFoodsUC _getFoodsUC;
-  late GetCategoriesUC _getAllCategoriesUC;
-
   @override
   Future<HomeState> build() async {
-    _getFoodsUC = ref.read(getFoodsUCProvider);
-    _getAllCategoriesUC = ref.read(getCategoriesUCProvider);
-
     return await _loadInitialData();
   }
 
   Future<HomeState> _loadInitialData() async {
     final results = await Future.wait([
-      _getFoodsUC.call(),
-      _getAllCategoriesUC.call(),
+      ref.read(getFoodsUCProvider).call(),
+      ref.read(getCategoriesUCProvider).call(),
     ]);
 
     final foods = results[0] as List<Food>;
@@ -34,7 +26,9 @@ class HomeAsyncNotifier extends AsyncNotifier<HomeState> {
   Future<void> setSelectedCategory(Category category) async {
     state = AsyncLoading<HomeState>().copyWithPrevious(state);
 
-    final foods = await _getFoodsUC.call(categoryId: category.id);
+    final foods = await ref
+        .read(getFoodsUCProvider)
+        .call(categoryId: category.id);
 
     state = AsyncData(
       state.value!.copyWith(
@@ -46,10 +40,20 @@ class HomeAsyncNotifier extends AsyncNotifier<HomeState> {
   }
 
   Future<void> resetSelectedCategory() async {
-    state = const AsyncLoading();
+    state = AsyncLoading<HomeState>().copyWithPrevious(state);
 
-    final foods = await _getFoodsUC.call();
+    final foods = await ref.read(getFoodsUCProvider).call();
 
-    state = AsyncData(state.value!.copyWith(foodList: foods, selectedCategory: null, isLoading: false));
+    state = AsyncData(
+      state.value!.copyWith(
+        foodList: foods,
+        selectedCategory: null,
+        isLoading: false,
+      ),
+    );
+  }
+
+  Future<void> refresh() async {
+    await _loadInitialData();
   }
 }

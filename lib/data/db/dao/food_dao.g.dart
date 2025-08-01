@@ -5,5 +5,6 @@ part of 'food_dao.dart';
 // ignore_for_file: type=lint
 mixin _$FoodDaoMixin on DatabaseAccessor<AppDatabase> {
   $CategoriesTable get categories => attachedDatabase.categories;
+
   $FoodsTable get foods => attachedDatabase.foods;
 }

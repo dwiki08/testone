@@ -16,15 +16,13 @@ class HomeNotifier extends StateNotifier<HomeState> {
   }) : _getFoodsUC = getFoodsUC,
        _getAllCategoriesUC = getAllCategoriesUC,
        super(const HomeState()) {
-    // Auto load data saat notifier dibuat
-    initData();
+    _loadInitialData();
   }
 
-  Future<void> initData() async {
+  Future<void> _loadInitialData() async {
     try {
-      state = state.copyWith(isLoading: true, errorMessage: null);
+      state = HomeState(isLoading: true);
 
-      // Load data secara parallel
       final results = await Future.wait([
         _getFoodsUC.call(),
         _getAllCategoriesUC.call(),
@@ -65,7 +63,6 @@ class HomeNotifier extends StateNotifier<HomeState> {
         errorMessage: null,
       );
 
-      // Load semua foods kembali
       final foods = await _getFoodsUC.call();
 
       state = state.copyWith(foodList: foods, isLoading: false);
@@ -80,8 +77,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
     state = state.copyWith(foodList: foods, isLoading: false);
   }
 
-  // Method tambahan untuk refresh
   Future<void> refresh() async {
-    await initData();
+    await _loadInitialData();
   }
 }
