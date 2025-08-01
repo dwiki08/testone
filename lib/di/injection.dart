@@ -4,7 +4,7 @@ import '../data/db/app_database.dart';
 import '../data/repository/food_repository.dart';
 import '../domain/usecase/get_categories.dart';
 import '../domain/usecase/get_foods.dart';
-import '../presentation/home_provider.dart';
+import '../presentation/bloc/home_cubit.dart';
 
 final locator = GetIt.instance;
 
@@ -24,10 +24,7 @@ void setupLocator() {
   );
 
   // State Managements
-  locator.registerFactory<HomeProvider>(
-    () => HomeProvider(
-      getFoodsUC: locator<GetFoodsUC>(),
-      getAllCategoriesUC: locator<GetCategoriesUC>(),
-    ),
+  locator.registerFactory(
+    () => HomeCubit(getFoodsUC: locator(), getCategoriesUC: locator()),
   );
 }

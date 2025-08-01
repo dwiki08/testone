@@ -11,7 +11,6 @@ part of 'food.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$Food {
 
@@ -82,7 +81,6 @@ abstract mixin class $FoodCopyWith<$Res> {
 
 
 }
-
 /// @nodoc
 class _$FoodCopyWithImpl<$Res>
     implements $FoodCopyWith<$Res> {
@@ -342,7 +340,6 @@ abstract mixin class _$FoodCopyWith<$Res> implements $FoodCopyWith<$Res> {
 
 
 }
-
 /// @nodoc
 class __$FoodCopyWithImpl<$Res>
     implements _$FoodCopyWith<$Res> {
